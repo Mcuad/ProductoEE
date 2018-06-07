@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">  
+
+    <h:head>
+        <title>Gauge Mode</title>
+    </h:head>
+    <h:body>
+
+        <h:form id="formGauge">
+            <p:poll interval="1" update="gauge" />
+            <p:meterGaugeChart id="gauge" value="#{productosMB.meterGaugeModel}"
+                                labelHeightAdjust="110"
+                               intervalOuterRadius="250"
+                               seriesColors="66cc66, 93b75f, E7E658, cc6666"
+                               style="width:800px;height:450px" 
+                               title="Custom Options" label="km/h" />
+        </h:form>
+
+
+    </h:body>
+</html>
+

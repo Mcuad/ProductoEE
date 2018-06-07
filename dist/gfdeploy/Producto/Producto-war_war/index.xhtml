@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+
+        <title>Productos</title>
+    </h:head>    <h:body>
+        <h1 style="text-align: center">Lista de productos</h1>
+
+
+
+        <p:button value="Insertar producto" icon="ui-icon-plusthick" outcome="InsertarProducto"/>
+        <p:button value="Grafica" icon="ui-icon-plusthick" outcome="Gauge"/>
+
+        <h:form id="prod">
+            <p:growl id="msg" showDetail="true"/>
+
+            <p:dataTable value="#{productosMB.productos}" var="item" paginator="true" editable="true" editMode="cell" rows="10" style="margin-bottom:20px" widgetVar="cellProd">
+                <p:ajax event="cellEdit" listener="#{productosMB.editar}" update=":prod:msg"/>
+                <!--<p:ajax event="cellEditCancel" listener="{productosMB.cancelar}" update=":prod:msg"/> -->
+
+                <p:column headerText="Codigo">             
+                    <h:outputText value="#{item.codart}"/>
+                </p:column>
+                
+                <p:column headerText="Seccion">
+                    <h:outputText value="#{item.seccion}"/>
+                </p:column>
+                
+                <p:column headerText="Nombre articulo">
+                    <p:cellEditor>
+                        <f:facet name="output"> <h:outputText value="#{item.nombrearticulo}"/></f:facet>
+                        <f:facet name="input">  <p:inputText value="#{productosMB.nombreArticulo}"/></f:facet> 
+                    </p:cellEditor>
+
+                </p:column>
+
+                <p:column headerText="Precio">                  
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{item.precio}"/></f:facet>                                 
+                        <f:facet name="input"><p:inputText value="#{productosMB.precio}"/> </f:facet> 
+                    </p:cellEditor>                 
+                </p:column>
+
+                <p:column headerText="Pais de origen">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{item.paisdeorigen}"/>    </f:facet>                   
+                        <f:facet name="input"><p:inputText value="#{productosMB.pais}"/></f:facet> 
+                    </p:cellEditor>                 
+                </p:column>
+
+                <p:column headerText="Opcion">                             
+                    <h:commandLink value="Eliminar" action="#{productosMB.eliminar(event)}" onclick="return confirm('Esta seguro')"/><br></br>                    
+                </p:column>
+            </p:dataTable>
+
+            <p:contextMenu for="prod" widgetVar="cProd">   
+                <p:menuitem value="Editar" icon="ui-icon-search" onclick="PF('cellProd').showCellEditor();return false;"/>  
+                <p:menuitem value="Ocultar" icon="ui-icon-close" onclick="PF('cProd').hide()"/>  
+            </p:contextMenu>
+        </h:form>
+    </h:body>
+</html>
+
